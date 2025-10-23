@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emojis con Física</title>
+    <title>Emojis con Física - Bienvenido</title>
     <style>
         * {
             margin: 0;
@@ -12,264 +12,252 @@
         }
 
         body {
-            overflow: hidden;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
         }
 
-        canvas {
-            display: block;
-            cursor: pointer;
+        .container {
+            max-width: 800px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: fadeIn 0.8s ease-in;
         }
 
-        .controls {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 10;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .controls h3 {
-            margin: 0 0 10px 0;
+        .emoji-header {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h1 {
             color: #333;
-            font-size: 14px;
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .controls button {
-            background: #667eea;
+        .description {
+            color: #555;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .controls-preview {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .controls-preview h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .control-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 12px;
+            background: white;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+
+        .control-item:hover {
+            transform: translateX(10px);
+        }
+
+        .control-icon {
+            font-size: 30px;
+            margin-right: 15px;
+            min-width: 40px;
+        }
+
+        .control-text {
+            color: #555;
+            font-size: 16px;
+        }
+
+        .play-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 8px 15px;
-            margin: 5px;
-            border-radius: 5px;
+            padding: 20px 60px;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 50px;
             cursor: pointer;
-            font-size: 12px;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
         }
 
-        .controls button:hover {
-            background: #764ba2;
+        .play-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
         }
 
-        .info {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            color: white;
+        .play-button:active {
+            transform: translateY(-2px);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .feature {
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .feature-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .feature-text {
+            color: #555;
             font-size: 14px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .emoji-header {
+                font-size: 60px;
+            }
+
+            .play-button {
+                padding: 15px 40px;
+                font-size: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="controls">
-        <h3>🎮 Controles</h3>
-        <button onclick="addEmoji()">➕ Agregar Emoji</button>
-        <button onclick="clearEmojis()">🗑️ Limpiar Todo</button>
-        <button onclick="toggleGravity()">🌍 Toggle Gravedad</button>
-        <button onclick="explosion()">💥 Explosión</button>
+    <div class="container">
+        <div class="emoji-header">😀✨🎉</div>
+
+        <h1>Emojis con Física</h1>
+
+        <p class="description">
+            ¡Bienvenido a una experiencia interactiva única! Sumérgete en un mundo donde los emojis
+            cobran vida con física realista. Crea, experimenta y diviértete con partículas que
+            responden a tus acciones con gravedad, colisiones y efectos especiales.
+        </p>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🎮</div>
+                <div class="feature-text">Interactivo</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌪️</div>
+                <div class="feature-text">Efectos Físicos</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💥</div>
+                <div class="feature-text">Explosiones</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌍</div>
+                <div class="feature-text">Gravedad</div>
+            </div>
+        </div>
+
+        <div class="controls-preview">
+            <h2>🎮 Controles del Juego</h2>
+
+            <div class="control-item">
+                <div class="control-icon">🖱️</div>
+                <div class="control-text">
+                    <strong>Click:</strong> Haz click en cualquier parte de la pantalla para agregar nuevos emojis
+                </div>
+            </div>
+
+            <div class="control-item">
+                <div class="control-icon">🌪️</div>
+                <div class="control-text">
+                    <strong>Arrastrar:</strong> Mantén presionado y arrastra para crear un vórtice que atraiga los emojis
+                </div>
+            </div>
+
+            <div class="control-item">
+                <div class="control-icon">➕</div>
+                <div class="control-text">
+                    <strong>Agregar Emoji:</strong> Añade un emoji aleatorio en el centro de la pantalla
+                </div>
+            </div>
+
+            <div class="control-item">
+                <div class="control-icon">🌍</div>
+                <div class="control-text">
+                    <strong>Toggle Gravedad:</strong> Activa o desactiva la gravedad para efectos diferentes
+                </div>
+            </div>
+
+            <div class="control-item">
+                <div class="control-icon">💥</div>
+                <div class="control-text">
+                    <strong>Explosión:</strong> Crea una explosión que empuja todos los emojis desde el centro
+                </div>
+            </div>
+
+            <div class="control-item">
+                <div class="control-icon">🗑️</div>
+                <div class="control-text">
+                    <strong>Limpiar Todo:</strong> Elimina todos los emojis de la pantalla
+                </div>
+            </div>
+        </div>
+
+        <a href="game.html" class="play-button">¡Jugar Ahora! 🚀</a>
     </div>
-
-    <div class="info">
-        <div>🖱️ Click para agregar emojis</div>
-        <div>🌪️ Arrastra para crear vórtice</div>
-    </div>
-
-    <canvas id="canvas"></canvas>
-
-    <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const emojis = ['😀', '😎', '🥳', '😍', '🤩', '😂', '🤣', '😊', '🌟', '⭐',
-                        '💫', '✨', '🔥', '💖', '💕', '🎈', '🎉', '🎊', '🌈', '🦄'];
-
-        let particles = [];
-        let mouse = { x: 0, y: 0, down: false, prevX: 0, prevY: 0 };
-        let gravityEnabled = true;
-
-        class Particle {
-            constructor(x, y, emoji) {
-                this.x = x;
-                this.y = y;
-                this.vx = (Math.random() - 0.5) * 10;
-                this.vy = (Math.random() - 0.5) * 10;
-                this.emoji = emoji;
-                this.size = 30 + Math.random() * 20;
-                this.rotation = Math.random() * Math.PI * 2;
-                this.rotationSpeed = (Math.random() - 0.5) * 0.2;
-                this.gravity = 0.3;
-                this.bounce = 0.7;
-                this.friction = 0.99;
-            }
-
-            update() {
-                // Aplicar gravedad
-                if (gravityEnabled) {
-                    this.vy += this.gravity;
-                }
-
-                // Atracción/repulsión del mouse
-                if (mouse.down) {
-                    const dx = mouse.x - this.x;
-                    const dy = mouse.y - this.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 200) {
-                        const force = (200 - distance) / 200;
-                        this.vx += (dx / distance) * force * 0.5;
-                        this.vy += (dy / distance) * force * 0.5;
-                    }
-                }
-
-                // Aplicar fricción
-                this.vx *= this.friction;
-                this.vy *= this.friction;
-
-                // Actualizar posición
-                this.x += this.vx;
-                this.y += this.vy;
-
-                // Actualizar rotación
-                this.rotation += this.rotationSpeed;
-
-                // Colisiones con los bordes
-                if (this.x + this.size / 2 > canvas.width) {
-                    this.x = canvas.width - this.size / 2;
-                    this.vx *= -this.bounce;
-                }
-                if (this.x - this.size / 2 < 0) {
-                    this.x = this.size / 2;
-                    this.vx *= -this.bounce;
-                }
-                if (this.y + this.size / 2 > canvas.height) {
-                    this.y = canvas.height - this.size / 2;
-                    this.vy *= -this.bounce;
-                }
-                if (this.y - this.size / 2 < 0) {
-                    this.y = this.size / 2;
-                    this.vy *= -this.bounce;
-                }
-
-                // Colisiones entre partículas
-                particles.forEach(other => {
-                    if (other !== this) {
-                        const dx = other.x - this.x;
-                        const dy = other.y - this.y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-                        const minDistance = (this.size + other.size) / 2;
-
-                        if (distance < minDistance) {
-                            const angle = Math.atan2(dy, dx);
-                            const targetX = this.x + Math.cos(angle) * minDistance;
-                            const targetY = this.y + Math.sin(angle) * minDistance;
-
-                            const ax = (targetX - other.x) * 0.05;
-                            const ay = (targetY - other.y) * 0.05;
-
-                            this.vx -= ax;
-                            this.vy -= ay;
-                            other.vx += ax;
-                            other.vy += ay;
-                        }
-                    }
-                });
-            }
-
-            draw() {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.rotation);
-                ctx.font = `${this.size}px Arial`;
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText(this.emoji, 0, 0);
-                ctx.restore();
-            }
-        }
-
-        function addEmoji(x, y) {
-            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
-            const posX = x !== undefined ? x : canvas.width / 2;
-            const posY = y !== undefined ? y : canvas.height / 4;
-            particles.push(new Particle(posX, posY, randomEmoji));
-        }
-
-        function clearEmojis() {
-            particles = [];
-        }
-
-        function toggleGravity() {
-            gravityEnabled = !gravityEnabled;
-        }
-
-        function explosion() {
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-
-            particles.forEach(particle => {
-                const dx = particle.x - centerX;
-                const dy = particle.y - centerY;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                const force = 20;
-
-                particle.vx += (dx / distance) * force;
-                particle.vy += (dy / distance) * force;
-            });
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-
-            requestAnimationFrame(animate);
-        }
-
-        // Event listeners
-        canvas.addEventListener('click', (e) => {
-            addEmoji(e.clientX, e.clientY);
-        });
-
-        canvas.addEventListener('mousedown', (e) => {
-            mouse.down = true;
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        });
-
-        canvas.addEventListener('mouseup', () => {
-            mouse.down = false;
-        });
-
-        canvas.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        });
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Inicializar con algunos emojis
-        for (let i = 0; i < 15; i++) {
-            addEmoji(
-                Math.random() * canvas.width,
-                Math.random() * canvas.height / 2
-            );
-        }
-
-        animate();
-    </script>
 </body>
 </html>
